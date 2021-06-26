@@ -64,6 +64,19 @@ final class SnapshotTestingStitchTests: XCTestCase {
         )
     }
     
+    func test_withView() {
+        assertSnapshot(
+            matching: createTestView(),
+            as: .stitch(
+                strategies: [
+                    ("100x", .image(size: CGSize(width: 100, height: 100))),
+                    ("250x", .image(size: CGSize(width: 250, height: 250))),
+                ]
+            ),
+            record: isRecording
+        )
+    }
+    
     // MARK: - Helpers
     
     func createTestViewController() -> UIViewController {
@@ -71,6 +84,13 @@ final class SnapshotTestingStitchTests: XCTestCase {
         viewController.view.backgroundColor = .blue
         
         return viewController
+    }
+    
+    func createTestView() -> UIView {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = .green
+        
+        return view
     }
     
 }

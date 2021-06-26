@@ -1,7 +1,7 @@
 import UIKit
 import SnapshotTesting
 
-extension Snapshotting where Value == UIViewController, Format == UIImage {
+extension Snapshotting where Format == UIImage {
     
     public static func stitch(
         strategies: [Snapshotting<Value, Format>],
