@@ -8,6 +8,8 @@ In essence, this allows you to have a single image which represents a single sna
 
 Images may also have titles, allowing you to easily identify each configuration within the image.
 
+![An image demonstrating an example output of the package. It shows seven views coloured in blue with red borders with titles above each of them naming each of the views.](Tests/SnapshotTestingStitchTests/__Snapshots__/SnapshotTestingStitch/test_withManyDevices.1.png)
+
 ## Usage
 
 See tests for example usage.
