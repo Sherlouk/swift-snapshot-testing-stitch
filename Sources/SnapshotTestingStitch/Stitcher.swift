@@ -66,9 +66,9 @@ struct ImageStitcher {
                 
                 // Increment horizontal offset for next image
                 xOffset +=
-                    image.size.width +
-                    style.itemSpacing +
-                    (style.borderWidth * 2)
+                    image.size.width
+                    + style.itemSpacing
+                    + (style.borderWidth * 2)
             }
         }
         
