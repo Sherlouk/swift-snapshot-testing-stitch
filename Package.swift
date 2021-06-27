@@ -4,13 +4,13 @@
 import PackageDescription
 
 let package = Package(
-    name: "swift-snapshot-testing-stitch",
+    name: "SnapshotTestingStitch",
     platforms: [
         .iOS(.v11),
     ],
     products: [
         .library(
-            name: "swift-snapshot-testing-stitch",
+            name: "SnapshotTestingStitch",
             targets: ["SnapshotTestingStitch"]
         ),
     ],
