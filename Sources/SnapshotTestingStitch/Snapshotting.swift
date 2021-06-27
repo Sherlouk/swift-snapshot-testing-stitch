@@ -3,6 +3,14 @@ import SnapshotTesting
 
 extension Snapshotting where Format == UIImage {
     
+    /// Stitches multiple visual snapshot strategies into a single image asset.
+    ///
+    /// - Parameters:
+    ///     - strategies: The unnamed tasks which should be carried out, in the order that they should be displayed.
+    ///                   Any strategy can be used as long as the output format is UIImage.
+    ///     - style: The style configuration which allows for you to customise the appearance of the output image, including but not limited to the item
+    ///              spacing, and optional image borders.
+    ///     - precision: The percentage of pixels that must match in the final comparison in order for the test to successfully pass.
     public static func stitch(
         strategies: [Snapshotting<Value, Format>],
         style: StitchStyle = .init(),
@@ -12,6 +20,14 @@ extension Snapshotting where Format == UIImage {
         stitch(strategies: strategies.map { ("", $0) }, style: style, precision: precision)
     }
     
+    /// Stitches multiple visual snapshot strategies into a single image asset.
+    ///
+    /// - Parameters:
+    ///     - strategies: The named tasks which should be carried out, in the order that they should be displayed. Titles will be displayed above their
+    ///                   respectful image, allowing for easier identification. Any strategy can be used as long as the output format is UIImage.
+    ///     - style: The style configuration which allows for you to customise the appearance of the output image, including but not limited to the item
+    ///              spacing, and optional image borders.
+    ///     - precision: The percentage of pixels that must match in the final comparison in order for the test to successfully pass.
     public static func stitch(
         strategies tasks: [(name: String, strategy: Snapshotting<Value, Format>)],
         style: StitchStyle = .init(),
