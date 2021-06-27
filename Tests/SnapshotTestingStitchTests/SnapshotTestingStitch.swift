@@ -77,6 +77,18 @@ final class SnapshotTestingStitchTests: XCTestCase {
         )
     }
     
+    func test_withNoStrategies() {
+        // You actually get a compiler warning for ambiguity by default, so you have to go through some loops to pass
+        // literally nothing through.
+        let tasks: [Snapshotting<UIView, UIImage>] = []
+        
+        assertSnapshot(
+            matching: createTestView(),
+            as: .stitch(strategies: tasks),
+            record: isRecording
+        )
+    }
+    
     // MARK: - Helpers
     
     func createTestViewController() -> UIViewController {

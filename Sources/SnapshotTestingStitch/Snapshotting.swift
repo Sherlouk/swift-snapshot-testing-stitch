@@ -12,7 +12,7 @@ extension Snapshotting where Format == UIImage {
     }
     
     public static func stitch(
-        strategies: [(name: String, strategy: Snapshotting<Value, Format>)],
+        strategies tasks: [(name: String, strategy: Snapshotting<Value, Format>)],
         style: StitchStyle = .init()
     ) -> Snapshotting {
         let internalStrategy: Snapshotting<UIViewController, UIImage> = .image
@@ -22,6 +22,14 @@ extension Snapshotting where Format == UIImage {
             diffing: internalStrategy.diffing
         ) { value in
             Async<UIImage> { callback in
+                // Fail fast: Ensure we have tasks to complete, otherwise return an empty image.
+                //
+                // An empty image will render an error as part of the SnapshotTesting flow.
+                guard tasks.isEmpty == false else {
+                    callback(UIImage())
+                    return
+                }
+                
                 // Create a dispatch group to keep track of the remaining tasks
                 let dispatchGroup = DispatchGroup()
                 
@@ -30,7 +38,7 @@ extension Snapshotting where Format == UIImage {
                 
                 // Loop over each of the user-provided strategies, snapshot them,
                 // store the output, and update the dispatch group.
-                strategies.enumerated().forEach { index, task in
+                tasks.enumerated().forEach { index, task in
                     dispatchGroup.enter()
                     
                     task.strategy.snapshot(value).run { output in
@@ -47,7 +55,7 @@ extension Snapshotting where Format == UIImage {
                         .map { result in (result.title, result.output) }
                     
                     // Check to ensure all tasks have been returned
-                    assert(sortedValues.count == strategies.count,
+                    assert(sortedValues.count == tasks.count,
                            "Inconsistant number of outputted values in comparison to inputted strategies")
                     
                     // Stitch them together, and callback to the snapshot testing library.
