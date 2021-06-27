@@ -1,10 +1,10 @@
 # SnapshotTesting Stitch
 
-[![Compatible with the latest Swift versions](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FSherlouk%2Fswift-snapshot-testing-stitch%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/Sherlouk/swift-snapshot-testing-stitch) [![Compatible with iOS](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FSherlouk%2Fswift-snapshot-testing-stitch%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/Sherlouk/swift-snapshot-testing-stitch) [![Contact @JamesSherlouk on Twitter](https://img.shields.io/badge/contact-@JamesSherlouk-blue.svg)](https://twitter.com/JamesSherlouk)
+[![Compatible with the latest Swift versions](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FSherlouk%2Fswift-snapshot-testing-stitch%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/Sherlouk/swift-snapshot-testing-stitch) [![Compatible with iOS](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FSherlouk%2Fswift-snapshot-testing-stitch%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/Sherlouk/swift-snapshot-testing-stitch) [![Contact @JamesSherlouk on Twitter](https://img.shields.io/badge/Contact-@JamesSherlouk-blue.svg)](https://twitter.com/JamesSherlouk)
 
-This is an extension to [SnapshotTesting](https://github.com/pointfreeco/swift-snapshot-testing) which allows you to create images combining the output of multiple snapshot strategies assuming they all output to UIImage.
+An extension to [SnapshotTesting](https://github.com/pointfreeco/swift-snapshot-testing) which allows you to create images combining the output of multiple snapshot strategies, assuming they all output to `UIImage`.
 
-In essence, this allows you to have a single image which represents a single snapshotted value in multiple different configurations. This might be useful in situations, for example, where you have the same UIViewController and want a single image showing the view in multiple sizes.
+In essence, this allows you to have a single image which represents a single view in your application, shown in multiple different configurations. This might be useful, for example, where you want to visualise the same UIViewController on multiple devices or in light and dark mode.
 
 Images may also have titles, allowing you to easily identify each configuration within the image.
 
@@ -87,7 +87,7 @@ If you want to use SnapshotTestingStitch in any other project that uses [Swift P
 
 ```swift
 dependencies: [
-  .package(name: "SnapshotTestingStitch", url: "https://github.com/Sherlouk/swift-snapshot-testing-stitch.git", from: "0.0.3"),
+  .package(name: "SnapshotTestingStitch", url: "https://github.com/Sherlouk/swift-snapshot-testing-stitch.git", from: "1.0.0"),
 ]
 ```
 
