@@ -5,17 +5,19 @@ extension Snapshotting where Format == UIImage {
     
     public static func stitch(
         strategies: [Snapshotting<Value, Format>],
-        style: StitchStyle = .init()
+        style: StitchStyle = .init(),
+        precision: Float = 1
     ) -> Snapshotting {
         // Default to an empty string, if they choose not to provide one.
-        stitch(strategies: strategies.map { ("", $0) }, style: style)
+        stitch(strategies: strategies.map { ("", $0) }, style: style, precision: precision)
     }
     
     public static func stitch(
         strategies tasks: [(name: String, strategy: Snapshotting<Value, Format>)],
-        style: StitchStyle = .init()
+        style: StitchStyle = .init(),
+        precision: Float = 1
     ) -> Snapshotting {
-        let internalStrategy: Snapshotting<UIViewController, UIImage> = .image
+        let internalStrategy: Snapshotting<UIViewController, UIImage> = .image(precision: precision)
         
         return Snapshotting(
             pathExtension: internalStrategy.pathExtension,
