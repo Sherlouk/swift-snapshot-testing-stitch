@@ -26,15 +26,15 @@ extension Snapshotting where Format == UIImage {
                 let dispatchGroup = DispatchGroup()
                 
                 // Create an array to store the final outputs to be stitched
-                var values = [(String, UIImage)]()
+                var values = [(index: Int, title: String, output: UIImage)]()
                 
                 // Loop over each of the user-provided strategies, snapshot them,
                 // store the output, and update the dispatch group.
-                strategies.forEach { strategy in
+                strategies.enumerated().forEach { index, task in
                     dispatchGroup.enter()
                     
-                    strategy.strategy.snapshot(value).run { output in
-                        values.append((strategy.name, output))
+                    task.strategy.snapshot(value).run { output in
+                        values.append((index, task.name, output))
                         dispatchGroup.leave()
                     }
                 }
@@ -42,12 +42,16 @@ extension Snapshotting where Format == UIImage {
                 // Once all strategies have been completed...
                 dispatchGroup.notify(queue: .main) {
                     // Sort values based on input order
-                    let comparableValues = strategies.compactMap { (name, _) in
-                        values.first(where: { $0.0 == name })
-                    }
+                    let sortedValues: [(String, UIImage)] = values
+                        .sorted(by: { lhs, rhs in lhs.index < rhs.index })
+                        .map { result in (result.title, result.output) }
+                    
+                    // Check to ensure all tasks have been returned
+                    assert(sortedValues.count == strategies.count,
+                           "Inconsistant number of outputted values in comparison to inputted strategies")
                     
                     // Stitch them together, and callback to the snapshot testing library.
-                    let image = ImageStitcher(inputs: comparableValues).stitch(style: style)
+                    let image = ImageStitcher(inputs: sortedValues).stitch(style: style)
                     callback(image)
                 }
             }
