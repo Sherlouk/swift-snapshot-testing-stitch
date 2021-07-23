@@ -12,12 +12,12 @@ extension Snapshotting where Format == UIImage {
     ///              spacing, and optional image borders.
     ///     - precision: The percentage of pixels that must match in the final comparison in order for the test to successfully pass.
     public static func stitch(
-        strategies: [Snapshotting<Value, Format>],
+        strategies tasks: [Snapshotting<Value, Format>],
         style: StitchStyle = .init(),
         precision: Float = 1
     ) -> Snapshotting {
         // Default to an empty string, if they choose not to provide one.
-        stitch(strategies: strategies.map { ("", $0) }, style: style, precision: precision)
+        stitch(strategies: tasks.map { .init(name: nil, strategy: $0, configure: nil) }, style: style, precision: precision)
     }
     
     /// Stitches multiple visual snapshot strategies into a single image asset.
@@ -30,6 +30,23 @@ extension Snapshotting where Format == UIImage {
     ///     - precision: The percentage of pixels that must match in the final comparison in order for the test to successfully pass.
     public static func stitch(
         strategies tasks: [(name: String, strategy: Snapshotting<Value, Format>)],
+        style: StitchStyle = .init(),
+        precision: Float = 1
+    ) -> Snapshotting {
+        stitch(strategies: tasks.map { .init(name: $0.name, strategy: $0.strategy, configure: nil) }, style: style, precision: precision)
+    }
+    
+    /// Stitches multiple visual snapshot strategies into a single image asset.
+    ///
+    /// - Parameters:
+    ///     - strategies: The tasks which should be carried out, in the order that they should be displayed. Tasks can include a title which will be displayed above
+    ///                 their respectful image, allowing for easier identification. Any strategy can be used as long as the output format is UIImage. Tasks can
+    ///                 can also contain a configuration block which allows for you to modify the value just before it's snapshot is taken.
+    ///     - style: The style configuration which allows for you to customise the appearance of the output image, including but not limited to the item
+    ///              spacing, and optional image borders.
+    ///     - precision: The percentage of pixels that must match in the final comparison in order for the test to successfully pass.
+    public static func stitch(
+        strategies tasks: [StitchTask<Value, Format>],
         style: StitchStyle = .init(),
         precision: Float = 1
     ) -> Snapshotting {
@@ -52,14 +69,17 @@ extension Snapshotting where Format == UIImage {
                 let dispatchGroup = DispatchGroup()
                 
                 // Create an array to store the final outputs to be stitched
-                var values = [(index: Int, title: String, output: UIImage)]()
+                var values = [(index: Int, title: String?, output: UIImage)]()
                 
                 // Loop over each of the user-provided strategies, snapshot them,
                 // store the output, and update the dispatch group.
                 tasks.enumerated().forEach { index, task in
                     dispatchGroup.enter()
                     
-                    task.strategy.snapshot(value).run { output in
+                    var mutableValue = value
+                    task.configure?(&mutableValue)
+                    
+                    task.strategy.snapshot(mutableValue).run { output in
                         values.append((index, task.name, output))
                         dispatchGroup.leave()
                     }
@@ -68,7 +88,7 @@ extension Snapshotting where Format == UIImage {
                 // Once all strategies have been completed...
                 dispatchGroup.notify(queue: .main) {
                     // Sort values based on input order
-                    let sortedValues: [(String, UIImage)] = values
+                    let sortedValues: [(String?, UIImage)] = values
                         .sorted(by: { lhs, rhs in lhs.index < rhs.index })
                         .map { result in (result.title, result.output) }
                     

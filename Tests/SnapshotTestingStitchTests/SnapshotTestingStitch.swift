@@ -89,6 +89,21 @@ final class SnapshotTestingStitchTests: XCTestCase {
         )
     }
     
+    func test_withConfigure() {
+        assertSnapshot(
+            matching: createTestViewController(),
+            as: .stitch(strategies: [
+                .init(name: "Green", strategy: .image, configure: { $0.view.backgroundColor = .green }),
+                .init(name: "Pink", strategy: .image, configure: { $0.view.backgroundColor = .systemPink }),
+                
+                // The input value is being manipulated, which means if you don't reconfigure it then it will be the
+                // same as the previous test.
+                .init(name: "Pink (No Configure)", strategy: .image, configure: nil),
+            ]),
+            record: isRecording
+        )
+    }
+    
     // MARK: - Helpers
     
     func createTestViewController() -> UIViewController {
