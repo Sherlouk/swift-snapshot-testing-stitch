@@ -2,14 +2,16 @@ import UIKit
 
 struct ImageStitcher {
     
-    let inputs: [(title: String, image: UIImage)]
+    let inputs: [(title: String?, image: UIImage)]
     
     func stitch(style: StitchStyle) -> UIImage {
         
         // Check whether or not any inputs contain a valid title
-        let includeTitles: Bool = inputs
-            .map { $0.title }
-            .allSatisfy { $0.trimmingCharacters(in: .whitespacesAndNewlines) == "" } == false
+        let allTitles = inputs
+            .compactMap(\.title)
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { $0.isEmpty == false }
+        let includeTitles: Bool = allTitles.isEmpty == false
         
         let images = inputs.map { $0.image }
         
@@ -75,8 +77,8 @@ struct ImageStitcher {
         return image
     }
     
-    func drawTitle(frame: CGRect, title: String, style: StitchStyle) {
-        guard case let title = title.trimmingCharacters(in: .whitespacesAndNewlines),
+    func drawTitle(frame: CGRect, title: String?, style: StitchStyle) {
+        guard let title = title?.trimmingCharacters(in: .whitespacesAndNewlines),
               title.isEmpty == false
         else {
             return
