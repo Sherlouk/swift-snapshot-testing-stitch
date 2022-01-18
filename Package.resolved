@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "SnapshotTestingHEIC",
+        "repositoryURL": "https://github.com/alexey1312/SnapshotTestingHEIC.git",
+        "state": {
+          "branch": null,
+          "revision": "a8e6abbdde6969f0a8fb80f1ca62640824905387",
+          "version": "1.0.1"
+        }
+      },
+      {
         "package": "SnapshotTesting",
         "repositoryURL": "https://github.com/pointfreeco/swift-snapshot-testing.git",
         "state": {
