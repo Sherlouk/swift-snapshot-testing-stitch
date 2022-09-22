@@ -6,17 +6,17 @@
         "repositoryURL": "https://github.com/alexey1312/SnapshotTestingHEIC.git",
         "state": {
           "branch": null,
-          "revision": "a8e6abbdde6969f0a8fb80f1ca62640824905387",
-          "version": "1.0.1"
+          "revision": "cfdfdd431e3f7b272faa935fa0d1c1707839d443",
+          "version": "1.1.0"
         }
       },
       {
-        "package": "SnapshotTesting",
+        "package": "swift-snapshot-testing",
         "repositoryURL": "https://github.com/pointfreeco/swift-snapshot-testing.git",
         "state": {
           "branch": null,
-          "revision": "f8a9c997c3c1dab4e216a8ec9014e23144cbab37",
-          "version": "1.9.0"
+          "revision": "f29e2014f6230cf7d5138fc899da51c7f513d467",
+          "version": "1.10.0"
         }
       }
     ]
