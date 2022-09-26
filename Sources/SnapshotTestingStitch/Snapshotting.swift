@@ -12,12 +12,14 @@ public extension Snapshotting where Format == UIImage {
     ///     including but not limited to the item spacing, and optional image borders.
     ///   - precision: The percentage of pixels that must match in the final comparison
     ///   in order for the test to successfully pass.
+    ///   - perceptualPrecision: The percentage a pixel must match the source pixel to be considered a match. [98-99% mimics the precision of the human eye.](http://zschuessler.github.io/DeltaE/learn/#toc-defining-delta-e)
     ///   - format: The desired image format to use when writing to an image destination.
     ///   It would default to PNG for backwards compatibility.
     static func stitch(
         strategies tasks: [Snapshotting<Value, Format>],
         style: StitchStyle = .init(),
         precision: Float = 1,
+        perceptualPrecision: Float = 1,
         format: ImageFormat = .png
     ) -> Snapshotting {
         // Default to an empty string, if they choose not to provide one.
@@ -25,6 +27,7 @@ public extension Snapshotting where Format == UIImage {
             strategies: tasks.map { .init(name: nil, strategy: $0, configure: nil) },
             style: style,
             precision: precision,
+            perceptualPrecision: perceptualPrecision,
             format: format
         )
     }
@@ -39,18 +42,21 @@ public extension Snapshotting where Format == UIImage {
     ///   including but not limited to the item spacing, and optional image borders.
     ///   - precision: The percentage of pixels that must match in the final comparison
     ///   in order for the test to successfully pass.
+    ///   - perceptualPrecision: The percentage a pixel must match the source pixel to be considered a match. [98-99% mimics the precision of the human eye.](http://zschuessler.github.io/DeltaE/learn/#toc-defining-delta-e)
     ///   - format: The desired image format to use when writing to an image destination.
     ///   It would default to PNG for backwards compatibility.
     static func stitch(
         strategies tasks: [(name: String, strategy: Snapshotting<Value, Format>)],
         style: StitchStyle = .init(),
         precision: Float = 1,
+        perceptualPrecision: Float = 1,
         format: ImageFormat = .png
     ) -> Snapshotting {
         stitch(
             strategies: tasks.map { .init(name: $0.name, strategy: $0.strategy, configure: nil) },
             style: style,
             precision: precision,
+            perceptualPrecision: perceptualPrecision,
             format: format
         )
     }
@@ -67,19 +73,21 @@ public extension Snapshotting where Format == UIImage {
     ///   including but not limited to the item spacing, and optional image borders.
     ///   - precision: The percentage of pixels that must match in the final comparison
     ///   in order for the test to successfully pass.
+    ///   - perceptualPrecision: The percentage a pixel must match the source pixel to be considered a match. [98-99% mimics the precision of the human eye.](http://zschuessler.github.io/DeltaE/learn/#toc-defining-delta-e)
     ///   - format: The desired image format to use when writing to an image destination.
     ///   It would default to PNG for backwards compatibility.
     static func stitch(
         strategies tasks: [StitchTask<Value, Format>],
         style: StitchStyle = .init(),
         precision: Float = 1,
+        perceptualPrecision: Float = 1,
         format: ImageFormat = .png
     ) -> Snapshotting {
         let internalStrategy: Snapshotting<UIViewController, UIImage>
 
         switch format {
             case .png:
-                internalStrategy = .image(precision: precision)
+                internalStrategy = .image(precision: precision, perceptualPrecision: perceptualPrecision)
             case .heic(let compressionQuality):
                 internalStrategy = .imageHEIC(precision: precision, compressionQuality: compressionQuality)
         }
