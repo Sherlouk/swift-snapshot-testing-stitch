@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "SnapshotTestingStitch",
     platforms: [
-        .iOS(.v11),
+        .iOS(.v13),
     ],
     products: [
         .library(
@@ -20,7 +20,7 @@ let package = Package(
                  from: "1.10.0"),
         .package(name: "SnapshotTestingHEIC",
                  url: "https://github.com/alexey1312/SnapshotTestingHEIC.git",
-                 from: "1.1.0"),
+                 from: "1.2.1"),
     ],
     targets: [
         .target(
