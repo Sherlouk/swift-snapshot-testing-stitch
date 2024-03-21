@@ -25,9 +25,9 @@ public struct StitchStyle {
     /// What color should the background of the image be?
     public let backgroundColor: UIColor
     
-    /// Creates a defintion of how a stitched snapshot should be presented.
+    /// Creates a definition of how a stitched snapshot should be presented.
     ///
-    /// Allows you to customise certain aspects of the stitched output image.
+    /// Allows you to customize certain aspects of the stitched output image.
     ///
     /// - Parameters:
     ///     - fontSize: How large should the font size be for the optional titles which appear above each stitched image?
