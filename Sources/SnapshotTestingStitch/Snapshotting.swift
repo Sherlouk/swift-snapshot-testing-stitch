@@ -1,4 +1,4 @@
-import UIKit
+import CoreGraphics
 import SnapshotTesting
 import SnapshotTestingHEIC
 

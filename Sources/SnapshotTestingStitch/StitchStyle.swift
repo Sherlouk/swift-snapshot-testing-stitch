@@ -1,4 +1,4 @@
-import UIKit
+import CoreGraphics
 
 public struct StitchStyle {
     /// How large should the font size be for the optional titles which appear above each stitched image?
