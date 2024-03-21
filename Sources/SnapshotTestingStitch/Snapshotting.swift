@@ -83,7 +83,7 @@ public extension Snapshotting where Format == UIImage {
         perceptualPrecision: Float = 1,
         format: ImageFormat = .png
     ) -> Snapshotting {
-        let internalStrategy: Snapshotting<UIViewController, UIImage>
+        let internalStrategy: Snapshotting<ViewController, Image>
 
         switch format {
             case .png:
