@@ -2,7 +2,7 @@ import UIKit
 import SnapshotTesting
 import SnapshotTestingHEIC
 
-public extension Snapshotting where Format == UIImage {
+public extension Snapshotting where Format == Image {
     /// Stitches multiple visual snapshot strategies into a single image asset.
     ///
     /// - Parameters:
@@ -66,7 +66,7 @@ public extension Snapshotting where Format == UIImage {
     /// - Parameters:
     ///   - tasks: The tasks which should be carried out, in the order that they should be displayed.
     ///   Tasks can include a title which will be displayed above their respectful image,
-    ///   allowing for easier identification. Any strategy can be used as long as the output format is UIImage.
+    ///   allowing for easier identification. Any strategy can be used as long as the output format is Image.
     ///   Tasks can can also contain a configuration block which allows for you to modify
     ///   the value just before it's snapshot is taken.
     ///   - style: The style configuration which allows for you to customise the appearance of the output image,
@@ -96,12 +96,12 @@ public extension Snapshotting where Format == UIImage {
             pathExtension: internalStrategy.pathExtension,
             diffing: internalStrategy.diffing
         ) { value in
-            Async<UIImage> { callback in
+            Async<Image> { callback in
                 // Fail fast: Ensure we have tasks to complete, otherwise return an empty image.
                 //
                 // An empty image will render an error as part of the SnapshotTesting flow.
                 guard tasks.isEmpty == false else {
-                    callback(UIImage())
+                    callback(Image())
                     return
                 }
 
@@ -109,7 +109,7 @@ public extension Snapshotting where Format == UIImage {
                 let dispatchGroup = DispatchGroup()
 
                 // Create an array to store the final outputs to be stitched
-                var values = [(index: Int, title: String?, output: UIImage)]()
+                var values = [(index: Int, title: String?, output: Image)]()
 
                 // Loop over each of the user-provided strategies, snapshot them,
                 // store the output, and update the dispatch group.
@@ -128,7 +128,7 @@ public extension Snapshotting where Format == UIImage {
                 // Once all strategies have been completed...
                 dispatchGroup.notify(queue: .main) {
                     // Sort values based on input order
-                    let sortedValues: [(String?, UIImage)] = values
+                    let sortedValues: [(String?, Image)] = values
                         .sorted(by: { lhs, rhs in lhs.index < rhs.index })
                         .map { result in (result.title, result.output) }
 

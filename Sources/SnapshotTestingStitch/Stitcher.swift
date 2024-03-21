@@ -1,10 +1,10 @@
 import UIKit
 
 struct ImageStitcher {
+    let inputs: [(title: String?, image: Image)]
     
-    let inputs: [(title: String?, image: UIImage)]
     
-    func stitch(style: StitchStyle) -> UIImage {
+    func stitch(style: StitchStyle) -> Image {
         
         // Check whether or not any inputs contain a valid title
         let allTitles = inputs
@@ -116,7 +116,7 @@ struct ImageStitcher {
         context.fill(CGRect(origin: .zero, size: size))
     }
     
-    func calculateImageSize(images: [UIImage], includeTitles: Bool, style: StitchStyle) -> CGSize {
+    func calculateImageSize(images: [Image], includeTitles: Bool, style: StitchStyle) -> CGSize {
         let largestHeight = images
             .map { $0.size.height }
             .max()
