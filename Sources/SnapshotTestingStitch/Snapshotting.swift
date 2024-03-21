@@ -8,7 +8,7 @@ public extension Snapshotting where Format == UIImage {
     /// - Parameters:
     ///   - tasks: The unnamed tasks which should be carried out, in the order that they should be displayed.
     ///     Any strategy can be used as long as the output format is UIImage.
-    ///   - style: The style configuration which allows for you to customise the appearance of the output image,
+    ///   - style: The style configuration which allows for you to customize the appearance of the output image,
     ///     including but not limited to the item spacing, and optional image borders.
     ///   - precision: The percentage of pixels that must match in the final comparison
     ///   in order for the test to successfully pass.
@@ -38,7 +38,7 @@ public extension Snapshotting where Format == UIImage {
     ///   - tasks: The named tasks which should be carried out, in the order that they should be displayed.
     ///   Titles will be displayed above their respectful image, allowing for easier identification.
     ///   Any strategy can be used as long as the output format is UIImage.
-    ///   - style: The style configuration which allows for you to customise the appearance of the output image,
+    ///   - style: The style configuration which allows for you to customize the appearance of the output image,
     ///   including but not limited to the item spacing, and optional image borders.
     ///   - precision: The percentage of pixels that must match in the final comparison
     ///   in order for the test to successfully pass.
@@ -69,7 +69,7 @@ public extension Snapshotting where Format == UIImage {
     ///   allowing for easier identification. Any strategy can be used as long as the output format is UIImage.
     ///   Tasks can can also contain a configuration block which allows for you to modify
     ///   the value just before it's snapshot is taken.
-    ///   - style: The style configuration which allows for you to customise the appearance of the output image,
+    ///   - style: The style configuration which allows for you to customize the appearance of the output image,
     ///   including but not limited to the item spacing, and optional image borders.
     ///   - precision: The percentage of pixels that must match in the final comparison
     ///   in order for the test to successfully pass.
@@ -135,7 +135,7 @@ public extension Snapshotting where Format == UIImage {
                     // Check to ensure all tasks have been returned
                     assert(
                         sortedValues.count == tasks.count,
-                        "Inconsistant number of outputted values in comparison to inputted strategies"
+                        "Inconsistent number of outputted values in comparison to inputted strategies"
                     )
 
                     // Stitch them together, and callback to the snapshot testing library.
