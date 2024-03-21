@@ -88,7 +88,7 @@ struct ImageStitcher {
         paragraphStyle.alignment = .center
 
         let titleAttributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: style.fontSize),
+            .font: Font.systemFont(ofSize: style.fontSize),
             .paragraphStyle: paragraphStyle,
             .foregroundColor: style.titleColor
         ]
