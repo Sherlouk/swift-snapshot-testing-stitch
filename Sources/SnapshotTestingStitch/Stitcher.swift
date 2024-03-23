@@ -1,10 +1,16 @@
+import CoreGraphics
+
+#if canImport(UIKit)
 import UIKit
+#elseif canImport(AppKit)
+import AppKit
+#endif
 
 struct ImageStitcher {
+    let inputs: [(title: String?, image: Image)]
     
-    let inputs: [(title: String?, image: UIImage)]
     
-    func stitch(style: StitchStyle) -> UIImage {
+    func stitch(style: StitchStyle) -> Image {
         
         // Check whether or not any inputs contain a valid title
         let allTitles = inputs
@@ -88,7 +94,7 @@ struct ImageStitcher {
         paragraphStyle.alignment = .center
 
         let titleAttributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: style.fontSize),
+            .font: Font.systemFont(ofSize: style.fontSize),
             .paragraphStyle: paragraphStyle,
             .foregroundColor: style.titleColor
         ]
@@ -116,7 +122,7 @@ struct ImageStitcher {
         context.fill(CGRect(origin: .zero, size: size))
     }
     
-    func calculateImageSize(images: [UIImage], includeTitles: Bool, style: StitchStyle) -> CGSize {
+    func calculateImageSize(images: [Image], includeTitles: Bool, style: StitchStyle) -> CGSize {
         let largestHeight = images
             .map { $0.size.height }
             .max()

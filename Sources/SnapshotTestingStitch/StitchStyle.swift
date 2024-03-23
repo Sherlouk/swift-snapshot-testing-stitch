@@ -1,14 +1,14 @@
-import UIKit
+import CoreGraphics
 
 public struct StitchStyle {
     /// How large should the font size be for the optional titles which appear above each stitched image?
     public let fontSize: CGFloat
     
     /// What color should the title text be?
-    public let titleColor: UIColor
+    public let titleColor: Color
     
     /// What color should the border be which surrounds each individual stitched image?
-    public let borderColor: UIColor
+    public let borderColor: Color
     
     /// How thick should the border be which surrounds each individual stitched image?
     public let borderWidth: CGFloat
@@ -23,7 +23,7 @@ public struct StitchStyle {
     public let titleSpacing: CGFloat
     
     /// What color should the background of the image be?
-    public let backgroundColor: UIColor
+    public let backgroundColor: Color
     
     /// Creates a definition of how a stitched snapshot should be presented.
     ///
@@ -40,13 +40,13 @@ public struct StitchStyle {
     ///     - backgroundColor: What color should the background of the image be?
     public init(
         fontSize: CGFloat = 20,
-        titleColor: UIColor = .white,
-        borderColor: UIColor = .red,
+        titleColor: Color = .white,
+        borderColor: Color = .red,
         borderWidth: CGFloat = 5,
         itemSpacing: CGFloat = 32,
         framePadding: CGFloat = 32,
         titleSpacing: CGFloat = 32,
-        backgroundColor: UIColor = .black
+        backgroundColor: Color = .black
     ) {
         assert(borderWidth >= 0, "The provided border width should be a positive integer, or zero if you do not want a border to be displayed.")
         assert(itemSpacing >= 0, "The provided item spacing should be a positive integer.")
